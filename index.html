@@ -1,0 +1,746 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Selfie Coffee — кофе, завтраки и уют в Усть-Каменогорске</title>
+<meta name="description" content="Selfie Coffee — кофейня с завтраками весь день, кофе с собой, уютной атмосферой и доставкой в Усть-Каменогорске. Закажите через WhatsApp.">
+<link rel="canonical" href="https://selfie-coffee.vercel.app/">
+<meta property="og:title" content="Selfie Coffee — кофе, завтраки и уют в Усть-Каменогорске">
+<meta property="og:description" content="Кофе с собой, завтраки весь день, уютная атмосфера и доставка. Закажите в WhatsApp.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://selfie-coffee.vercel.app/">
+<meta property="og:image" content="https://selfie-coffee.vercel.app/images/og-cover.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Selfie Coffee — кофе и завтраки">
+<meta name="twitter:description" content="Кофе с собой, завтраки весь день, уютная атмосфера и доставка в Усть-Каменогорске.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23f7f1e8'/%3E%3Cpath d='M18 24h28c0 10-6 18-14 18S18 34 18 24z' fill='%23c87f45'/%3E%3Cpath d='M20 18c4-4 9-6 12-6s8 2 12 6' fill='none' stroke='%2320120d' stroke-width='3' stroke-linecap='round'/%3E%3Cpath d='M23 44h18' stroke='%2320120d' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Manrope:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f7f1e8;
+  --bg-2:#fffaf4;
+  --panel:#fffdf8;
+  --ink:#241a12;
+  --muted:#5c5448;
+  --line:#eadfcf;
+  --accent:#c87f45;
+  --accent-2:#2d261c;
+  --display:"Fraunces","DM Serif Display",Georgia,serif;
+  --hand:"Fraunces","DM Serif Display",Georgia,serif;
+  --body:"Manrope",Arial,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}*,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important;scroll-behavior:auto !important}.ticker-track{animation:none!important}.slider-frame img{transition:none!important}.hero-figure .ring{animation:none!important}.hero-figure .mark-lg{animation:none!important}}
+body{
+  background:
+    radial-gradient(circle at top, rgba(200,127,69,0.10), transparent 24%),
+    linear-gradient(180deg, var(--bg) 0%, #efe5d7 100%);
+  color:var(--ink);
+  font-family:var(--body);
+  line-height:1.6;
+  overflow-x:hidden;
+}
+::selection{background:rgba(200,127,69,.18);color:var(--accent-2)}
+/* film grain overlay */
+body::after{
+  content:"";
+  position:fixed;inset:0;z-index:9999;pointer-events:none;opacity:.02;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.wrap{max-width:1200px;margin:0 auto;padding:0 24px}
+section{position:relative;padding:96px 0}
+.eyebrow{
+  font-family:var(--body);font-weight:700;letter-spacing:.28em;text-transform:uppercase;
+  font-size:.72rem;color:var(--accent);margin-bottom:18px;display:flex;align-items:center;gap:12px;
+}
+.eyebrow::before{content:"";width:34px;height:1px;background:var(--accent)}
+h2.title{font-family:var(--display);font-weight:400;letter-spacing:.02em;line-height:.95;
+  font-size:clamp(2.4rem,6vw,4.6rem);text-transform:uppercase;color:var(--accent-2)}
+
+/* ---------- TICKER ---------- */
+@keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.ticker{overflow:hidden;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--bg-2);padding:14px 0}
+.ticker-track{display:flex;white-space:nowrap;width:max-content;animation:ticker 22s linear infinite}
+.ticker:hover .ticker-track{animation-play-state:paused}
+.ticker-item{font-family:var(--display);font-size:clamp(1rem,1.8vw,1.35rem);text-transform:uppercase;letter-spacing:.14em;color:var(--muted);flex-shrink:0;padding-right:0}
+.ticker-item .sep{color:var(--accent);margin:0 .45em}
+
+/* ---------- SCROLL PROGRESS BAR ---------- */
+#progress-bar{position:fixed;top:0;left:0;width:0%;height:3px;background:linear-gradient(90deg,var(--accent),#e9b67e);z-index:250;pointer-events:none;transition:width .08s linear}
+
+/* ---------- PHOTO SLIDER ---------- */
+.slider{aspect-ratio:4/5;border:1px solid var(--line);position:relative;overflow:hidden;background:var(--panel);border-radius:28px}
+.slider-track{position:relative;width:100%;height:100%}
+.slide{position:absolute;inset:0;opacity:0;transition:opacity .75s ease;display:grid;place-items:center}
+.slide.active{opacity:1}
+.slide:nth-child(1){background:repeating-linear-gradient(45deg,#fff7ef 0 14px,#f6eadc 14px 28px)}
+.slide:nth-child(2){background:radial-gradient(circle at 40% 35%,#ffe8cf,#f3eadb)}
+.slide:nth-child(3){background:repeating-linear-gradient(135deg,#fffaf4 0 14px,#f4eadc 14px 28px)}
+.slide-label{font-family:var(--display);font-size:1.1rem;color:var(--accent-2);letter-spacing:.2em;text-transform:uppercase;text-align:center;padding:20px;pointer-events:none;user-select:none}
+.slider-arrow{position:absolute;top:50%;transform:translateY(-50%);z-index:10;background:rgba(247,241,232,.88);border:1px solid var(--line);color:var(--accent-2);width:42px;height:42px;display:grid;place-items:center;cursor:pointer;font-size:1.3rem;line-height:1;transition:.22s;backdrop-filter:blur(6px)}
+.slider-arrow:hover{background:var(--accent);border-color:var(--accent);color:#fff}
+.slider-prev{left:14px}
+.slider-next{right:14px}
+.slider-dots{position:absolute;bottom:16px;left:50%;transform:translateX(-50%);display:flex;gap:7px;z-index:10}
+.slider-dot{width:6px;height:6px;border-radius:50%;background:var(--line);border:1px solid var(--line);cursor:pointer;padding:0;transition:.3s}
+.slider-dot.active{background:var(--accent);border-color:var(--accent);width:20px;border-radius:3px}
+.slider .badge{position:absolute;bottom:50px;right:14px;background:var(--accent);color:#fff;font-size:.7rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;padding:7px 13px;z-index:10}
+
+/* ---------- PARALLAX ---------- */
+[data-parallax]{will-change:transform}
+
+/* ---------- REDUCED MOTION ---------- */
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important;scroll-behavior:auto !important}.reveal{opacity:1;transform:none;transition:none}.ticker-track{animation:none}.slider .slide{transition:none}#progress-bar{transition:none}}
+@media (hover:hover) and (pointer:fine){[data-parallax]:hover{transform:translate3d(0,0,0)}}
+
+/* ---------- NAV ---------- */
+header{position:fixed;top:0;left:0;right:0;z-index:100;transition:.35s}
+header.scrolled{background:rgba(247,241,232,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:76px}
+.mobile-menu{position:fixed;top:0;right:0;bottom:0;width:min(320px,100%);background:rgba(247,241,232,.98);border-left:1px solid var(--line);padding:24px;display:flex;flex-direction:column;gap:12px;transform:translateX(105%);transition:.35s;z-index:260}
+.mobile-menu.open{transform:translateX(0)}
+.mobile-menu a{color:var(--ink);text-decoration:none;padding:10px 0;border-bottom:1px solid var(--line);font-weight:600}
+.mobile-menu .menu-close{align-self:flex-end;background:none;border:none;color:var(--ink);font-size:1.35rem;cursor:pointer}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--ink)}
+.brand .mark{width:38px;height:38px}
+.brand b{font-family:var(--display);font-size:1.35rem;letter-spacing:.04em;text-transform:uppercase}
+.brand b span{color:var(--accent)}
+.menu{display:flex;gap:30px;list-style:none}
+.menu a{color:var(--muted);text-decoration:none;font-size:.9rem;font-weight:500;transition:.2s;letter-spacing:.02em}
+a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+
+.menu a:hover{color:var(--ink)}
+.btn{
+  display:inline-flex;align-items:center;gap:9px;font-weight:700;text-decoration:none;
+  padding:13px 24px;border-radius:999px;font-size:.86rem;letter-spacing:.04em;text-transform:uppercase;
+  transition:.25s;cursor:pointer;border:none;box-shadow:0 10px 24px rgba(200,127,69,.18);
+}
+.btn-primary{background:linear-gradient(135deg,var(--accent),#e0a06a);color:#fff}
+.btn-primary:hover{background:linear-gradient(135deg,#d98f52,#e8b278);transform:translateY(-2px)}
+.btn-ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.btn-ghost:hover{border-color:var(--accent);color:var(--accent-2)}
+.nav-toggle{display:none;background:none;border:none;color:var(--ink);font-size:1.6rem;cursor:pointer}
+
+/* ---------- HERO ---------- */
+.hero{min-height:100vh;display:flex;align-items:center;padding-top:76px;
+  background:
+    radial-gradient(110% 90% at 80% 0%, rgba(200,127,69,0.12), transparent 30%),
+    linear-gradient(135deg, #fffaf4 0%, #f3eadb 45%, var(--bg) 100%) }
+.hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;width:100%}
+.hero-side{display:grid;gap:18px}
+.hero-card,.hero-photo{background:linear-gradient(180deg, rgba(255,255,255,.86), rgba(255,255,255,.68));border:1px solid var(--line);border-radius:28px;box-shadow:0 18px 34px rgba(145,120,94,.14);padding:22px}
+.hero-card h3{font-family:var(--display);font-size:clamp(1.25rem,3vw,1.7rem);line-height:1.08;color:var(--accent-2);margin:10px 0}
+.hero-card p{color:var(--muted);font-size:.98rem}
+.hero-pills{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.hero-pills span{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:rgba(255,255,255,.72);border-radius:999px;padding:8px 10px;font-size:.78rem;color:var(--accent-2)}
+.hero-photo{min-height:240px;display:grid;align-items:end;background:linear-gradient(135deg,#fff7ef 0%, #f2e4d5 50%, #efe5d7 100%);position:relative;overflow:hidden}
+.hero-photo::before,.hero-photo::after{content:"";position:absolute;border-radius:50%;background:rgba(200,127,69,.12)}
+.hero-photo::before{width:180px;height:180px;top:-50px;right:-30px}
+.hero-photo::after{width:140px;height:140px;bottom:-40px;left:-20px}
+.hero-photo span{position:relative;z-index:1;font-family:var(--display);font-size:1rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent-2)}
+.hero .slogan{font-family:var(--hand);color:var(--accent);font-size:clamp(1.5rem,3vw,2.1rem);
+  transform:rotate(-3deg);margin-bottom:6px}
+.hero h1{font-family:var(--display);font-weight:400;text-transform:uppercase;line-height:.92;
+  font-size:clamp(3rem,9vw,7rem);letter-spacing:.03em;color:var(--accent-2);margin:6px 0 24px;text-shadow:0 8px 24px rgba(255,255,255,.25)}
+.hero h1 em{font-style:normal;color:var(--accent);-webkit-text-stroke:1px var(--accent);color:transparent}
+.hero p.lead{color:var(--muted);font-size:1.08rem;max-width:32ch;margin-bottom:34px}
+.hero-cta{display:flex;gap:14px;flex-wrap:wrap}
+.hero-figure{position:relative;display:flex;justify-content:center}
+.hero-figure .ring{width:min(420px,90%);aspect-ratio:1;border:1px solid var(--line);border-radius:50%;
+  display:grid;place-items:center;position:relative;animation:spin 40s linear infinite}
+.hero-figure .ring::before{content:"";position:absolute;inset:26px;border:1px dashed var(--line);border-radius:50%}
+.hero-figure .mark-lg{width:46%;animation:spin 40s linear infinite reverse}
+@keyframes spin{to{transform:rotate(360deg)}}
+.stats{display:flex;gap:18px;margin-top:40px;flex-wrap:wrap}.stat{background:rgba(255,255,255,.72);border:1px solid var(--line);border-radius:18px;padding:14px 16px;min-width:130px}
+.stat b{font-family:var(--display);font-size:2rem;color:var(--accent-2);display:block;line-height:1}
+.stat strong{font-family:var(--display);font-size:1.3rem;color:var(--accent-2);display:block;line-height:1.05}
+.stat span{color:var(--muted);font-size:.8rem;letter-spacing:.05em;text-transform:uppercase}
+.stat.text-only{min-width:180px;display:grid;align-content:center}
+.stat.text-only span{font-size:.85rem;text-transform:none;letter-spacing:.02em;line-height:1.3}
+.hero-meta{display:flex;gap:12px;flex-wrap:wrap;margin-top:18px}
+.mini-chip{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);background:rgba(255,255,255,.78);color:var(--accent-2);border-radius:999px;padding:10px 14px;font-size:.92rem;font-weight:700}
+.mini-chip::before{content:'⏱';color:var(--accent)}
+
+/* ---------- REVEAL / STAGGER ---------- */
+.reveal{opacity:0;transform:translateY(26px);transition:.7s cubic-bezier(.2,.7,.2,1)}
+.reveal.in{opacity:1;transform:none}
+.menu-card.reveal{opacity:0;transform:translateY(18px);transition:opacity .55s ease,transform .55s ease;transition-delay:calc(var(--stagger, 0) * 60ms)}
+.menu-card.reveal.in{opacity:1;transform:none}
+@media (prefers-reduced-motion: reduce){.reveal,.menu-card.reveal{opacity:1;transform:none;transition:none}}
+
+/* ---------- ABOUT ---------- */
+.about{padding:120px 0;border-top:1px solid var(--line)}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.about p{color:var(--muted);font-size:1.05rem;margin-top:22px}
+.about .quote{font-family:var(--hand);color:var(--ink);font-size:1.6rem;margin-top:26px;border-left:2px solid var(--accent);padding-left:18px}
+.about-art{aspect-ratio:4/5;background:
+  repeating-linear-gradient(45deg,#fff7ef 0 12px,#f6eadc 12px 24px);
+  border:1px solid var(--line);position:relative;overflow:hidden}
+.about-art::before{content:"⚜";position:absolute;inset:0;display:grid;place-items:center;
+  font-size:9rem;color:var(--accent)}
+
+/* ---------- SERVICES ---------- */
+.services{padding:120px 0;background:var(--bg-2)}
+.svc-head{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;flex-wrap:wrap;margin-bottom:50px}
+.svc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.menu-note{color:var(--muted);font-size:.92rem;margin-top:18px;text-align:center}
+.menu-groups{display:grid;gap:24px}
+.menu-group{border:1px solid var(--line);background:linear-gradient(180deg, rgba(255,255,255,.86), rgba(255,255,255,.6));border-radius:28px;padding:24px;box-shadow:0 18px 30px rgba(145,120,94,.12)}
+.menu-group h3{font-family:var(--display);font-size:1.35rem;text-transform:uppercase;letter-spacing:.08em;color:var(--accent-2);margin-bottom:16px}
+.menu-card-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.menu-card{display:grid;gap:12px;border:1px solid var(--line);background:var(--panel);border-radius:22px;overflow:hidden;box-shadow:0 14px 24px rgba(145,120,94,.08);transition:transform .25s ease, box-shadow .25s ease}
+.menu-card:hover{transform:translateY(-4px);box-shadow:0 18px 28px rgba(145,120,94,.14)}
+.menu-photo{aspect-ratio:4/3;overflow:hidden;background:linear-gradient(135deg,#fff7ef,#efe5d7)}
+.menu-photo img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .35s ease}
+.menu-card:hover .menu-photo img{transform:scale(1.05)}
+.menu-card-body{display:grid;gap:8px;padding:14px 14px 16px}
+.menu-card h4{font-family:var(--display);font-size:1.1rem;line-height:1.02;text-transform:uppercase;color:var(--accent-2)}
+.menu-card p{color:var(--muted);font-size:.92rem;min-height:2.6em}
+.menu-card .price{margin-top:2px;color:var(--accent);font-weight:700;font-size:.92rem;letter-spacing:.04em;text-transform:uppercase}
+.svc{background:linear-gradient(180deg, rgba(255,255,255,.82), rgba(255,255,255,.56));border:1px solid var(--line);padding:30px 24px;transition:.3s;position:relative;overflow:hidden;border-radius:24px;box-shadow:0 18px 30px rgba(145,120,94,.12)}
+.svc:hover{transform:translateY(-4px);box-shadow:0 22px 36px rgba(145,120,94,.18)}
+.svc::before{content:"";position:absolute;left:0;top:0;height:3px;width:0;background:var(--accent);transition:.35s}
+.svc:hover{transform:translateY(-6px);border-color:var(--accent)}
+.svc:hover::before{width:100%}
+.svc .ic{font-size:1.9rem;margin-bottom:18px;display:block}
+.svc h3{font-family:var(--display);font-weight:400;font-size:1.5rem;text-transform:uppercase;letter-spacing:.02em;margin-bottom:10px;color:var(--accent-2)}
+.svc p{color:var(--muted);font-size:.92rem}
+.svc .price{margin-top:16px;color:var(--accent);font-weight:700;font-size:.9rem}
+
+/* ---------- WHY ---------- */
+.why{padding:120px 0}
+.why-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:50px}
+.why-card{padding:30px;border:1px solid var(--line);background:linear-gradient(180deg,rgba(255,255,255,.84),rgba(255,255,255,.58));border-radius:24px;box-shadow:0 18px 30px rgba(145,120,94,.12)}
+.why-card .n{font-family:var(--display);font-size:2.6rem;color:var(--accent);line-height:1}
+.why-card h4{font-size:1.15rem;margin:14px 0 8px;color:var(--accent-2)}
+.why-card p{color:var(--muted);font-size:.92rem}
+
+/* ---------- PORTFOLIO ---------- */
+.portfolio{padding:120px 0;background:var(--bg-2)}
+.pf-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:50px}
+.pf{aspect-ratio:1;border:1px solid var(--line);position:relative;overflow:hidden;display:grid;place-items:center;
+  background:#fffaf4;border-radius:24px;box-shadow:0 16px 26px rgba(145,120,94,.12);transition:transform .25s ease, box-shadow .25s ease}
+.pf span{font-family:var(--display);font-size:1rem;color:var(--accent-2);text-transform:uppercase;letter-spacing:.15em;text-align:center;padding:10px}
+.pf::after{content:"+ ФОТО";position:absolute;inset:0;display:grid;place-items:center;background:rgba(200,127,69,.0);
+  color:transparent;font-weight:700;letter-spacing:.2em;font-size:.8rem;transition:.3s}
+.pf:hover::after{background:rgba(200,127,69,.88);color:#fff}
+.pf:nth-child(3n+1){background:repeating-linear-gradient(45deg,#fff7ef 0 10px,#f3eadb 10px 20px)}
+.pf:nth-child(3n+2){background:radial-gradient(circle at 50% 40%,#ffe3c5,#f8f2ea)}
+.pf:nth-child(3n){background:repeating-linear-gradient(0deg,#fffaf4 0 10px,#efe5d7 10px 20px)}
+.pf-note{text-align:center;color:var(--muted);font-size:.85rem;margin-top:24px}
+
+/* ---------- OFFERS ---------- */
+.offers{padding:120px 0}
+.off-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:50px}
+ .off{border:1px solid rgba(200,127,69,.25);padding:42px;position:relative;background:linear-gradient(135deg,#fff7ef,rgba(255,255,255,.55));border-radius:28px;box-shadow:0 18px 32px rgba(145,120,94,.12)}
+.off .tag{position:absolute;top:-12px;left:30px;background:var(--accent);color:#fff;font-size:.7rem;
+  font-weight:700;letter-spacing:.15em;padding:5px 12px;text-transform:uppercase}
+.off h3{font-family:var(--display);font-weight:400;font-size:2rem;text-transform:uppercase;color:var(--accent-2);margin-bottom:10px}
+.off p{color:var(--muted)}
+
+/* ---------- MASTERS ---------- */
+.masters{padding:120px 0;background:var(--bg-2)}
+.m-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:50px}
+.m-card{border:1px solid var(--line);background:var(--panel);overflow:hidden}
+.m-photo{aspect-ratio:3/4;background:linear-gradient(180deg,#fff8ef,#efe5d7);display:grid;place-items:center}
+.m-photo span{font-family:var(--display);font-size:3.4rem;color:var(--muted)}
+.m-info{padding:22px}
+.m-info h4{font-size:1.2rem;color:var(--accent-2)}
+.m-info .role{color:var(--accent);font-size:.82rem;letter-spacing:.08em;text-transform:uppercase;margin-top:3px}
+.m-info p{color:var(--muted);font-size:.9rem;margin-top:10px}
+
+/* ---------- CONTACT ---------- */
+.contact{padding:120px 0}
+.c-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:50px;margin-top:50px}
+.c-left{display:grid;gap:18px}
+.c-map,.delivery-box,.faq-card{background:var(--panel);border:1px solid var(--line);border-radius:28px;box-shadow:0 18px 30px rgba(145,120,94,.12)}
+.c-map{padding:18px}
+.c-map iframe{width:100%;min-height:260px;border:0;border-radius:18px;background:var(--bg)}
+.c-map p{color:var(--muted);font-size:.95rem;margin:12px 0 10px}
+.c-info .row{display:flex;gap:16px;padding:20px 0;border-bottom:1px solid var(--line)}
+.c-info .row .ic{font-size:1.3rem;color:var(--accent)}
+.c-info .row h5{font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
+.c-info .row p{color:var(--accent-2);font-size:1.05rem}
+.c-info .row a{color:var(--accent-2);text-decoration:none}
+.c-info .row a:hover{color:var(--accent)}
+.form{background:var(--panel);border:1px solid var(--line);padding:38px}
+.form label{display:block;font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:18px 0 8px}
+.form input,.form textarea{width:100%;background:var(--bg);border:1px solid var(--line);color:var(--ink);
+  padding:13px 14px;font-family:var(--body);font-size:.95rem;border-radius:2px}
+.form input:focus,.form textarea:focus{outline:none;border-color:var(--accent)}
+.form .btn{width:100%;justify-content:center;margin-top:26px}
+.form .hint{font-size:.78rem;color:var(--muted);margin-top:14px;text-align:center}
+
+/* ---------- DELIVERY / FAQ ---------- */
+.delivery-box{padding:28px;margin-top:24px}
+.delivery-box h3{font-family:var(--display);font-size:1.4rem;color:var(--accent-2);text-transform:uppercase;letter-spacing:.04em;margin-bottom:8px}
+.delivery-box p{color:var(--muted);font-size:.95rem;margin-bottom:14px}
+.faq{padding:120px 0;background:var(--bg-2)}
+.faq-grid{display:grid;gap:14px;margin-top:40px}
+.faq-item{border:1px solid var(--line);border-radius:18px;background:var(--panel);overflow:hidden;box-shadow:0 14px 24px rgba(145,120,94,.08)}
+.faq-q{width:100%;background:none;border:none;text-align:left;padding:16px 18px;display:flex;align-items:center;justify-content:space-between;gap:12px;color:var(--accent-2);font-family:var(--display);font-size:1.02rem;text-transform:uppercase;letter-spacing:.04em;cursor:pointer}
+.faq-q span:last-child{color:var(--accent);font-size:1.1rem;transition:transform .25s ease}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .35s ease, padding .35s ease;padding:0 18px}
+.faq-item.open .faq-a{max-height:160px;padding:0 18px 16px}
+.faq-item.open .faq-q span:last-child{transform:rotate(45deg)}
+.faq-a p{color:var(--muted);font-size:.95rem}
+@media (prefers-reduced-motion: reduce){.faq-a,.faq-q span:last-child{transition:none !important}}
+
+/* ---------- FOOTER ---------- */
+footer{border-top:1px solid var(--line);padding:50px 0 30px;background:var(--bg-2)}
+.foot{display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap}
+.foot .menu a{color:var(--muted)}
+.foot .social{display:flex;gap:14px}
+.foot .social a{color:var(--muted);text-decoration:none;font-size:.9rem;border:1px solid var(--line);
+  padding:9px 16px;border-radius:2px;transition:.2s}
+.foot .social a:hover{border-color:var(--accent);color:#fff}
+.copy{color:var(--muted);font-size:.8rem;margin-top:30px;text-align:center}
+
+/* float WA */
+.wa{position:fixed;right:22px;bottom:22px;z-index:200;width:58px;height:58px;border-radius:50%;
+  background:var(--accent);display:grid;place-items:center;box-shadow:0 10px 30px rgba(200,127,69,.25);
+  text-decoration:none;font-size:1.7rem;transition:.25s}
+.wa:hover{transform:scale(1.08)}
+
+/* ---------- RESPONSIVE ---------- */
+@media(max-width:900px){
+  .menu{display:none}
+  .nav-toggle{display:block}
+  .hero-grid{grid-template-columns:1fr}
+  .hero-figure{display:none}
+  .about-grid,.c-grid,.off-grid{grid-template-columns:1fr}
+  .svc-grid{grid-template-columns:repeat(2,1fr)}
+  .menu-card-grid{grid-template-columns:repeat(2,1fr)}
+  .why-grid,.pf-grid{grid-template-columns:1fr 1fr}
+  .about{padding:80px 0}
+  section{padding:80px 0}
+}
+@media(max-width:560px){
+  .svc-grid,.menu-card-grid,.why-grid,.pf-grid{grid-template-columns:1fr}
+  .stats{gap:18px}
+}
+</style>
+</head>
+<body>
+<div id="progress-bar" role="progressbar" aria-hidden="true"></div>
+
+<!-- original placeholder logo mark (SVG) -->
+<svg width="0" height="0" style="position:absolute">
+  <symbol id="logo" viewBox="0 0 100 100">
+    <path d="M50 6 L60 28 L84 30 L66 46 L72 70 L50 58 L28 70 L34 46 L16 30 L40 28 Z"
+          fill="none" stroke="currentColor" stroke-width="3"/>
+    <path d="M50 38 C58 44 58 58 50 64 C42 58 42 44 50 38 Z" fill="currentColor"/>
+    <circle cx="50" cy="80" r="3.5" fill="currentColor"/>
+  </symbol>
+</svg>
+
+<header id="hdr">
+  <div class="wrap nav">
+    <a href="#top" class="brand">
+      <svg class="mark" style="color:var(--accent)"><use href="#logo"/></svg>
+      <b>Selfie <span>Coffee</span></b>
+    </a>
+    <ul class="menu">
+      <li><a href="#top">Главная</a></li>
+      <li><a href="#services">Меню</a></li>
+      <li><a href="#hits">Хиты</a></li>
+      <li><a href="#story">О кофейне</a></li>
+      <li><a href="#contact">Контакты</a></li>
+    </ul>
+    <a href="https://wa.me/77055281303?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B5%21%20%D0%A5%D0%BE%D1%87%D1%83%20%D0%B7%D0%B0%D0%BA%D0%B0%D0%B7%D0%B0%D1%82%D1%8C%20%D0%BD%D0%B0%D0%B2%D1%8B%D0%BD%D0%BE%D1%81%20%D0%B8%D0%BB%D0%B8%20%D0%B7%D0%B0%D0%B1%D1%80%D0%BE%D0%BD%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D1%82%D1%8C%20%D1%81%D1%82%D0%BE%D0%BB%D0%B8%D0%BA.%20Selfie%20Coffee." class="btn btn-primary" target="_blank" rel="noopener">Заказать</a>
+    <button class="nav-toggle" id="navToggle" aria-label="Меню">☰</button>
+  </div>
+  <nav class="mobile-menu" id="mobileMenu" aria-label="Мобильное меню">
+    <button class="menu-close" id="menuClose" aria-label="Закрыть меню">✕</button>
+    <a href="#top" onclick="closeMobileMenu()">Главная</a>
+    <a href="#services" onclick="closeMobileMenu()">Меню</a>
+    <a href="#hits" onclick="closeMobileMenu()">Хиты</a>
+    <a href="#story" onclick="closeMobileMenu()">О кофейне</a>
+    <a href="#contact" onclick="closeMobileMenu()">Контакты</a>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="wrap hero-grid">
+    <div>
+      <p class="slogan reveal">Кофе, завтраки и уют одной точки —</p>
+      <h1 class="reveal">Selfie<br><em>Coffee</em></h1>
+      <p class="lead reveal">Тёплая кофейня в Усть-Каменогорске: свежий кофе, завтраки весь день, фильтр-кофе и доставка Chocofood. Удобно для встречи, работы и короткой паузы на ходу.</p>
+      <div class="hero-cta reveal">
+        <a href="#services" class="btn btn-ghost">Смотреть меню</a>
+        <a href="https://wa.me/77055281303?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B5%21%20%D0%A5%D0%BE%D1%87%D1%83%20%D0%B7%D0%B0%D0%BA%D0%B0%D0%B7%D0%B0%D1%82%D1%8C%20%D0%BD%D0%B0%D0%B2%D1%8B%D0%BD%D0%BE%D1%81%20%D0%B8%D0%BB%D0%B8%20%D0%B7%D0%B0%D0%B1%D1%80%D0%BE%D0%BD%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D1%82%D1%8C%20%D1%81%D1%82%D0%BE%D0%BB%D0%B8%D0%BA.%20Selfie%20Coffee." class="btn btn-primary" target="_blank" rel="noopener">Заказать навынос</a>
+      </div>
+      <div class="stats reveal">
+        <div class="stat"><strong>3</strong><span>формата</span></div>
+        <div class="stat"><strong>08:00–20:00</strong><span>ежедневно</span></div>
+        <div class="stat text-only"><span>Завтраки весь день</span></div>
+      </div>
+      <div class="hero-meta reveal">
+        <a href="https://www.instagram.com/selfie_coffee_uka/" class="btn btn-ghost" target="_blank" rel="noopener">Меню и цены в Instagram</a>
+        <span class="mini-chip">Кофе с собой и доставка Chocofood</span>
+      </div>
+    </div>
+    <div class="hero-side reveal">
+      <article class="hero-card">
+        <p class="eyebrow">Наша точка</p>
+        <h3>Тёплый интерьер, ароматный кофе и завтраки весь день</h3>
+        <p>Уютная кофейня с мягкой атмосферой, где можно быстро взять кофе с собой или спокойно провести время за чашкой.</p>
+        <div class="hero-pills">
+          <span>Завтраки весь день</span>
+          <span>Доставка Chocofood</span>
+          <span>Фильтр-кофе</span>
+        </div>
+      </article>
+      <article class="hero-photo"><span>Фото-заглушка · интерьер / кофе / десерты</span></article>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDER / VITRINA -->
+<section class="about" id="about">
+  <div class="wrap about-grid">
+    <div class="reveal">
+      <p class="eyebrow">Витрина</p>
+      <h2 class="title" data-parallax>Сезонные хиты<br>и атмосфера точки</h2>
+      <p>В Selfie Coffee всё просто: тёплый интерьер, ароматный кофе, завтраки весь день и комфортный формат на вынос или для встречи.</p>
+      <p>Ниже — короткая витрина наших фаворитов, чтобы быстро понять настроение точки и выбрать любимое.</p>
+      <p class="quote">«Кофе, который хочется повторить — и место, где хочется остаться.»</p>
+    </div>
+    <div class="slider reveal" id="aboutSlider">
+      <div class="slider-track">
+        <div class="slide active"><img src="" alt="Фото кофейни Selfie Coffee — уютный зал" loading="lazy" decoding="async"><span class="slide-label">Хит дня</span></div>
+        <div class="slide"><img src="" alt="Фото завтраков и десертов" loading="lazy" decoding="async"><span class="slide-label">Завтраки весь день</span></div>
+        <div class="slide"><img src="" alt="Фото кофе с собой и доставки" loading="lazy" decoding="async"><span class="slide-label">Кофе с собой</span></div>
+      </div>
+      <button class="slider-arrow slider-prev" aria-label="Предыдущий">‹</button>
+      <button class="slider-arrow slider-next" aria-label="Следующий">›</button>
+      <div class="slider-dots">
+        <button class="slider-dot active"></button>
+        <button class="slider-dot"></button>
+        <button class="slider-dot"></button>
+      </div>
+      <div class="badge">Усть-Каменогорск</div>
+    </div>
+  </div>
+</section>
+
+<!-- MENU -->
+<section class="services" id="services">
+  <div class="wrap">
+    <div class="svc-head">
+      <div class="reveal">
+        <p class="eyebrow">Меню</p>
+        <h2 class="title">Категории и позиции</h2>
+      </div>
+      <p class="reveal" style="color:var(--muted);max-width:42ch">Короткий список позиций для быстрого выбора: кофе, напитки, завтраки, десерты и лёгкие блюда — без лишних цифр и без цен на этом этапе.</p>
+    </div>
+    <div class="menu-groups">
+      <article class="menu-group reveal">
+        <h3>Кофе</h3>
+        <div class="menu-card-grid">
+          <article class="menu-card"><div class="menu-photo"><img src="" alt="Эспрессо в кофейне Selfie Coffee" loading="lazy"></div><div class="menu-card-body"><h4>Эспрессо</h4><p>Крепкий и ароматный классический кофе для тех, кто любит насыщенный вкус.</p><p class="price">Цена: —</p></div></article>
+          <article class="menu-card"><div class="menu-photo"><img src="" alt="Американо в кофейне Selfie Coffee" loading="lazy"></div><div class="menu-card-body"><h4>Американо</h4><p>Мягкий кофе с водой, который хорошо подходит для спокойного утра.</p><p class="price">Цена: —</p></div></article>
+          <article class="menu-card"><div class="menu-photo"><img src="" alt="Капучино в кофейне Selfie Coffee" loading="lazy"></div><div class="menu-card-body"><h4>Капучино</h4><p>Эспрессо с молоком и плотной молочной пеной для уютного кофе-брейка.</p><p class="price">Цена: —</p></div></article>
+          <article class="menu-card"><div class="menu-photo"><img src="" alt="Латте в кофейне Selfie Coffee" loading="lazy"></div><div class="menu-card-body"><h4>Латте</h4><p>Мягкий кофе с большим количеством молока и нежной пенкой.</p><p class="price">Цена: —</p></div></article>
+          <article class="menu-card"><div class="menu-photo"><img src="" alt="Раф в кофейне Selfie Coffee" loading="lazy"></div><div class="menu-card-body"><h4>Раф</h4><p>Сливочный кофе со сливками и ванильным сахаром.</p><p class="price">Цена: —</p></div></article>
+          <article class="menu-card"><div class="menu-photo"><img src="" alt="Флэт-уайт в кофейне Selfie Coffee" loading="lazy"></div><div class="menu-card-body"><h4>Флэт-уайт</h4><p>Двойной эспрессо с тонким слоем молока — крепче латте.</p><p class="price">Цена: —</p></div></article>
+        </div>
+      </article>
+      <article class="menu-group reveal">
+        <h3>Напитки</h3>
+        <div class="menu-card-grid">
+          <article class="menu-card"><div class="menu-photo"><img src="" alt="Какао в кофейне Selfie Coffee" loading="lazy"></div><div class="menu-card-body"><h4>Какао</h4><p>Тёплый и сладкий напиток с мягким шоколадным вкусом.</p><p class="price">Цена: —</p></div></article>
+          <article class="menu-card"><div class="menu-photo"><img src="" alt="Горячий шоколад в кофейне Selfie Coffee" loading="lazy"></div><div class="menu-card-body"><h4>Горячий шоколад</h4><p>Плотный шоколадный напиток для уютной паузы и десерта.</p><p class="price">Цена: —</p></div></article>
+          <article class="menu-card"><div class="menu-photo"><img src="" alt="Матча латте в кофейне Selfie Coffee" loading="lazy"></div><div class="menu-card-body"><h4>Матча латте</h4><p>Японский зелёный чай матча с молоком и мягким послевкусием.</p><p class="price">Цена: —</p></div></article>
+          <article class="menu-card"><div class="menu-photo"><img src="" alt="Чай в кофейне Selfie Coffee" loading="lazy"></div><div class="menu-card-body"><h4>Чай</h4><p>Тёплый и спокойный вариант для отдыха и лёгкой встречи.</p><p class="price">Цена: —</p></div></article>
+          <article class="menu-card"><div class="menu-photo"><img src="" alt="Свежевыжатый сок в кофейне Selfie Coffee" loading="lazy"></div><div class="menu-card-body"><h4>Свежевыжатый сок</h4><p>Освежающий напиток с натуральным фруктовым вкусом.</p><p class="price">Цена: —</p></div></article>
+          <article class="menu-card"><div class="menu-photo"><img src="" alt="Лимонад в кофейне Selfie Coffee" loading="lazy"></div><div class="menu-card-body"><h4>Лимонад</h4><p>Сладкий и бодрящий напиток для тёплого дня.</p><p class="price">Цена: —</p></div></article>
+        </div>
+      </article>
+      <article class="menu-group reveal">
+        <h3>Завтраки</h3>
+        <div class="menu-card-grid">
+          <article class="menu-card"><div class="menu-photo"><img src="" alt="Сырники в кофейне Selfie Coffee" loading="lazy"></div><div class="menu-card-body"><h4>Сырники</h4><p>Творожные сырники со сметаной и джемом.</p><p class="price">Цена: —</p></div></article>
+          <article class="menu-card"><div class="menu-photo"><img src="" alt="Омлет в кофейне Selfie Coffee" loading="lazy"></div><div class="menu-card-body"><h4>Омлет</h4><p>Сытный и лёгкий вариант для полезного завтрака.</p><p class="price">Цена: —</p></div></article>
+          <article class="menu-card"><div class="menu-photo"><img src="" alt="Овсяноблин в кофейне Selfie Coffee" loading="lazy"></div><div class="menu-card-body"><h4>Овсяноблин</h4><p>Пышный блин с овсяной основой и яркими начинками.</p><p class="price">Цена: —</p></div></article>
+          <article class="menu-card"><div class="menu-photo"><img src="" alt="Гранола в кофейне Selfie Coffee" loading="lazy"></div><div class="menu-card-body"><h4>Гранола</h4><p>Полезный завтрак с хлопьями, фруктами и нежной текстурой.</p><p class="price">Цена: —</p></div></article>
+          <article class="menu-card"><div class="menu-photo"><img src="" alt="Английский завтрак в кофейне Selfie Coffee" loading="lazy"></div><div class="menu-card-body"><h4>Английский завтрак</h4><p>Классический набор на сытое и сбалансированное утро.</p><p class="price">Цена: —</p></div></article>
+        </div>
+      </article>
+      <article class="menu-group reveal">
+        <h3>Десерты</h3>
+        <div class="menu-card-grid">
+          <article class="menu-card"><div class="menu-photo"><img src="" alt="Чизкейк в кофейне Selfie Coffee" loading="lazy"></div><div class="menu-card-body"><h4>Чизкейк</h4><p>Мягкий и нежный десерт для уютной кофейной паузы.</p><p class="price">Цена: —</p></div></article>
+          <article class="menu-card"><div class="menu-photo"><img src="" alt="Круассан в кофейне Selfie Coffee" loading="lazy"></div><div class="menu-card-body"><h4>Круассан</h4><p>Хрустящий слойный десерт к кофе или чаю.</p><p class="price">Цена: —</p></div></article>
+          <article class="menu-card"><div class="menu-photo"><img src="" alt="Тирамису в кофейне Selfie Coffee" loading="lazy"></div><div class="menu-card-body"><h4>Тирамису</h4><p>Лёгкий кофейный десерт с мягкой текстурой и ароматом какао.</p><p class="price">Цена: —</p></div></article>
+        </div>
+      </article>
+    </div>
+    <p class="menu-note reveal">Актуальные цены — в заведении и в нашем Instagram.</p>
+    <article class="delivery-box reveal">
+      <h3>Навынос и доставка</h3>
+      <p>Берите кофе с собой, заказывайте завтраки на вынос или оформляйте доставку через Chocofood — всё быстро и без лишних шагов.</p>
+      <a href="https://wa.me/77055281303?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B5%21%20%D0%A5%D0%BE%D1%87%D1%83%20%D0%B7%D0%B0%D0%BA%D0%B0%D0%B7%D0%B0%D1%82%D1%8C%20%D0%BA%D0%BE%D1%84%D0%B5%20%D1%81%20%D1%81%D0%B0%D0%B1%D1%80%D0%B0%D0%BA%20%D0%B4%D0%BB%D1%8F%20%D0%BD%D0%B0%D0%B2%D1%8B%D0%BD%D0%BE%D1%81%20%D0%B8%D0%BB%D0%B8%20%D0%B4%D0%BE%D1%81%D1%82%D0%B0%D0%B2%D0%BA%D0%B8.%20Selfie%20Coffee." class="btn btn-primary" target="_blank" rel="noopener">Заказать в WhatsApp</a>
+    </article>
+  </div>
+</section>
+
+<section class="ticker reveal" aria-label="Бегущая строка услуг">
+  <div class="ticker-track">
+    <span class="ticker-item">КОФЕ<span class="sep">—</span></span>
+    <span class="ticker-item">ЗАВТРАКИ<span class="sep">—</span></span>
+    <span class="ticker-item">ДЕСЕРТЫ<span class="sep">—</span></span>
+    <span class="ticker-item">ДОСТАВКА<span class="sep">—</span></span>
+    <span class="ticker-item">КОФЕ<span class="sep">—</span></span>
+    <span class="ticker-item">ЗАВТРАКИ<span class="sep">—</span></span>
+    <span class="ticker-item">ДЕСЕРТЫ<span class="sep">—</span></span>
+    <span class="ticker-item">ДОСТАВКА</span>
+  </div>
+</section>
+
+<!-- HITS -->
+<section class="why" id="hits">
+  <div class="wrap">
+    <p class="eyebrow reveal">Хиты</p>
+    <h2 class="title reveal">Популярные позиции</h2>
+    <div class="why-grid">
+      <article class="why-card reveal"><div class="n">01</div><h4>Раф</h4><p>Тёплый, сливочный и мягкий — любимый выбор для спокойного кофе-брейка.</p></article>
+      <article class="why-card reveal"><div class="n">02</div><h4>Овсяноблин</h4><p>Лёгкий завтрак с ярким вкусом и хорошей текстурой для начала дня.</p></article>
+      <article class="why-card reveal"><div class="n">03</div><h4>Матча латте</h4><p>Свежий и приятный напиток для тех, кто любит яркие и спокойные сочетания.</p></article>
+      <article class="why-card reveal"><div class="n">04</div><h4>Чизкейк</h4><p>Мягкий десерт для кофейной паузы и уютного общения с друзьями.</p></article>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT COFFEE -->
+<section class="portfolio" id="story">
+  <div class="wrap">
+    <p class="eyebrow reveal">О кофейне</p>
+    <h2 class="title reveal" data-parallax>Одна точка, где всё просто</h2>
+    <div class="pf-grid">
+      <article class="pf reveal"><span>Уютная точка</span></article>
+      <article class="pf reveal"><span>Свежий кофе</span></article>
+      <article class="pf reveal"><span>Завтраки весь день</span></article>
+      <article class="pf reveal"><span>Фильтр-кофе</span></article>
+      <article class="pf reveal"><span>Доставка Chocofood</span></article>
+      <article class="pf reveal"><span>Навынос и столик</span></article>
+    </div>
+    <p class="pf-note reveal">Фото — заглушки. Реальные кадры можно заменить позже по готовым материалам.</p>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq" id="faq">
+  <div class="wrap">
+    <p class="eyebrow reveal">FAQ</p>
+    <h2 class="title reveal">Ответы на частые вопросы</h2>
+    <div class="faq-grid">
+      <article class="faq-item reveal">
+        <button class="faq-q" type="button" aria-expanded="false">Wi‑Fi <span>+</span></button>
+        <div class="faq-a"><p>В точке есть Wi‑Fi — можно спокойно работать, встречаться и проводить время за кофе.</p></div>
+      </article>
+      <article class="faq-item reveal">
+        <button class="faq-q" type="button" aria-expanded="false">Можно с ноутбуком? <span>+</span></button>
+        <div class="faq-a"><p>Да, у нас комфортно для короткой работы, встреч и спокойного кофебрейка.</p></div>
+      </article>
+      <article class="faq-item reveal">
+        <button class="faq-q" type="button" aria-expanded="false">До скольки завтраки? <span>+</span></button>
+        <div class="faq-a"><p>Завтраки доступны весь день — удобно выбрать формат в любое время.</p></div>
+      </article>
+      <article class="faq-item reveal">
+        <button class="faq-q" type="button" aria-expanded="false">Есть ли навынос? <span>+</span></button>
+        <div class="faq-a"><p>Да, есть кофе с собой и доставка через Chocofood для удобного заказа в любое время.</p></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="wrap">
+    <p class="eyebrow reveal">Контакты</p>
+    <h2 class="title reveal">Одна точка, один адрес</h2>
+    <div class="c-grid">
+      <div class="c-left reveal">
+        <div class="c-info">
+        <div class="row"><span class="ic">⌖</span><div><h5>Адрес</h5><p>Усть-Каменогорск, ул. Тохтарова, 51</p></div></div>
+        <div class="row"><span class="ic">⏱</span><div><h5>Часы</h5><p>Ежедневно 08:00 — 20:00</p></div></div>
+        <div class="row"><span class="ic">✆</span><div><h5>WhatsApp</h5><p><a href="https://wa.me/77055281303" target="_blank" rel="noopener">+7 705 528 1303</a></p></div></div>
+        <div class="row"><span class="ic">☕</span><div><h5>Формат</h5><p>Кофе с собой, завтраки весь день, доставка Chocofood, столик на месте</p></div></div>
+      </div>
+        <div class="c-map">
+        <iframe title="Карта Selfie Coffee" src="https://www.google.com/maps?q=%D0%A2%D0%BE%D1%85%D1%82%D0%B0%D1%80%D0%BE%D0%B2%D0%B0%2051%20%D0%A3%D1%81%D1%82%D1%8C-%D0%9A%D0%B0%D0%BC%D0%B5%D0%BD%D0%BE%D0%B3%D0%BE%D1%80%D1%81%D0%BA&z=15&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <p>Тохтарова 51 — легко найти по адресу и быстро добраться до точки.</p>
+        <a href="https://www.google.com/maps/search/?api=1&query=%D0%A2%D0%BE%D1%85%D1%82%D0%B0%D1%80%D0%BE%D0%B2%D0%B0+51+%D0%A3%D1%81%D1%82%D1%8C-%D0%9A%D0%B0%D0%BC%D0%B5%D0%BD%D0%BE%D0%B3%D0%BE%D1%80%D1%81%D1%81%D0%BA" class="btn btn-ghost" target="_blank" rel="noopener">Открыть в Google Maps</a>
+      </div>
+      </div>
+      <div class="form reveal">
+        <p class="eyebrow" style="margin-bottom:10px">Заказ</p>
+        <label for="nm">Имя</label>
+        <input id="nm" type="text" placeholder="Как вас зовут">
+        <label for="ph">Телефон</label>
+        <input id="ph" type="tel" placeholder="+7 ___ ___ __ __">
+        <label for="idea">Что заказать</label>
+        <textarea id="idea" rows="3" placeholder="Кофе, завтраки, десерт, столик или доставка"></textarea>
+        <button class="btn btn-primary" id="send">Заказать в WhatsApp</button>
+        <p class="hint">Откроет WhatsApp для Selfie Coffee: заказ навынос / бронь столика.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <a href="#top" class="brand">
+        <svg class="mark" style="color:var(--accent)"><use href="#logo"/></svg>
+        <b>Selfie <span>Coffee</span></b>
+      </a>
+      <ul class="menu" style="display:flex">
+        <li><a href="#services">Меню</a></li>
+        <li><a href="#hits">Хиты</a></li>
+        <li><a href="#story">О кофейне</a></li>
+        <li><a href="#contact">Контакты</a></li>
+      </ul>
+      <div class="social">
+        <a href="https://wa.me/77055281303" target="_blank" rel="noopener">WhatsApp</a>
+        <a href="#contact">Заказ</a>
+      </div>
+    </div>
+      <p class="copy">© <span id="yr"></span> Selfie Coffee — кофейня и завтраки, Усть-Каменогорск. Демо-лендинг. Логотип и фото — заглушки.</p>
+  </div>
+</footer>
+
+<a class="wa" href="https://wa.me/77055281303?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B5%21%20%D0%A5%D0%BE%D1%87%D1%83%20%D0%B7%D0%B0%D0%BA%D0%B0%D0%B7%D0%B0%D1%82%D1%8C%20%D0%BD%D0%B0%D0%B2%D1%8B%D0%BD%D0%BE%D1%81%20%D0%B8%D0%BB%D0%B8%20%D0%B7%D0%B0%D0%B1%D1%80%D0%BE%D0%BD%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D1%82%D1%8C%20%D1%81%D1%82%D0%BE%D0%BB%D0%B8%D0%BA.%20Selfie%20Coffee." target="_blank" rel="noopener" aria-label="WhatsApp">✆</a>
+
+<script>
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+const hdr = document.getElementById('hdr');
+const progressBar = document.getElementById('progress-bar');
+addEventListener('scroll', () => {
+  hdr.classList.toggle('scrolled', scrollY > 20);
+  const docH = document.documentElement.scrollHeight - innerHeight;
+  progressBar.style.width = (docH > 0 ? (scrollY / docH) * 100 : 0) + '%';
+}, { passive: true });
+
+document.querySelectorAll('.menu-card').forEach((card, index) => {
+  card.classList.add('reveal');
+  card.style.setProperty('--stagger', String(index));
+});
+
+const revealItems = document.querySelectorAll('.reveal');
+const io = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if (!entry.isIntersecting) return;
+
+    const delay = prefersReducedMotion
+      ? 0
+      : entry.target.classList.contains('menu-card')
+        ? Number(entry.target.style.getPropertyValue('--stagger') || 0) * 60
+        : 0;
+
+    setTimeout(() => {
+      entry.target.classList.add('in');
+    }, delay);
+
+    io.unobserve(entry.target);
+  });
+}, { threshold: .12 });
+
+revealItems.forEach(el => io.observe(el));
+
+const navToggle = document.getElementById('navToggle');
+const mobileMenu = document.getElementById('mobileMenu');
+const menuClose = document.getElementById('menuClose');
+navToggle.onclick = () => mobileMenu.classList.add('open');
+menuClose.onclick = () => mobileMenu.classList.remove('open');
+function closeMobileMenu() { mobileMenu.classList.remove('open'); }
+
+(function initSlider() {
+  const slider = document.getElementById('aboutSlider');
+  if (!slider) return;
+  const slides = slider.querySelectorAll('.slide');
+  const dots = slider.querySelectorAll('.slider-dot');
+  let cur = 0;
+  let timer;
+  function goTo(n) {
+    slides[cur].classList.remove('active');
+    dots[cur].classList.remove('active');
+    cur = (n + slides.length) % slides.length;
+    slides[cur].classList.add('active');
+    dots[cur].classList.add('active');
+  }
+  function startAuto() {
+    clearInterval(timer);
+    if (!prefersReducedMotion) timer = setInterval(() => goTo(cur + 1), 5000);
+  }
+  slider.querySelector('.slider-prev').addEventListener('click', () => { goTo(cur - 1); startAuto(); });
+  slider.querySelector('.slider-next').addEventListener('click', () => { goTo(cur + 1); startAuto(); });
+  dots.forEach((dot, i) => dot.addEventListener('click', () => { goTo(i); startAuto(); }));
+  let touchX = 0;
+  slider.addEventListener('touchstart', e => { touchX = e.touches[0].clientX; }, { passive: true });
+  slider.addEventListener('touchend', e => { const dx = e.changedTouches[0].clientX - touchX; if (Math.abs(dx) > 40) { goTo(dx < 0 ? cur + 1 : cur - 1); startAuto(); } }, { passive: true });
+  startAuto();
+})();
+
+(function initParallax() {
+  if (!window.matchMedia('(hover:hover) and (pointer:fine)').matches || prefersReducedMotion) return;
+  const els = document.querySelectorAll('[data-parallax]');
+  if (!els.length) return;
+  let tx = 0, ty = 0, cx = 0, cy = 0;
+  const LERP = 0.055;
+  document.addEventListener('mousemove', e => { tx = (e.clientX / window.innerWidth - 0.5) * 2; ty = (e.clientY / window.innerHeight - 0.5) * 2; }, { passive: true });
+  function tick() {
+    cx += (tx - cx) * LERP;
+    cy += (ty - cy) * LERP;
+    els.forEach(el => {
+      const s = parseFloat(el.dataset.parallax) || 8;
+      el.style.transform = `translate(${(cx * s).toFixed(2)}px, ${(cy * s).toFixed(2)}px)`;
+    });
+    requestAnimationFrame(tick);
+  }
+  tick();
+})();
+
+(function initFaq() {
+  document.querySelectorAll('.faq-item').forEach(item => {
+    const btn = item.querySelector('.faq-q');
+    if (!btn) return;
+    btn.addEventListener('click', () => {
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i => {
+        i.classList.remove('open');
+        const b = i.querySelector('.faq-q');
+        if (b) b.setAttribute('aria-expanded', 'false');
+      });
+      if (!isOpen) {
+        item.classList.add('open');
+        btn.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
+})();
+
+// year
+document.getElementById('yr').textContent = new Date().getFullYear();
+
+// form -> whatsapp
+const sendBtn = document.getElementById('send');
+if (sendBtn) sendBtn.onclick = () => {
+  const nm = document.getElementById('nm').value.trim();
+  const ph = document.getElementById('ph').value.trim();
+  const idea = document.getElementById('idea').value.trim();
+  const msg = `Здравствуйте! Хочу заказать кофе, завтрак или забронировать столик в Selfie Coffee.%0AИмя: ${encodeURIComponent(nm || '—')}%0AТелефон: ${encodeURIComponent(ph || '—')}%0AЧто заказать: ${encodeURIComponent(idea || '—')}`;
+  open(`https://wa.me/77055281303?text=${msg}`, '_blank');
+};
+</script>
+</body>
+</html>
